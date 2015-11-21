@@ -1,0 +1,30 @@
+{
+  "name": "react-hyperscript-helpers",
+  "version": "0.0.0",
+  "description": "Terse syntax for hyperscript using react",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src/ --out-dir lib",
+    "test": "mocha -c --require babel-core/register ./test"
+  },
+  "keywords": [
+    "hyperscript",
+    "react",
+    "jsx",
+    "hyperscript-helpers",
+    "react-hyperscript",
+    "react-hyperscript-helpers"
+  ],
+  "author": "Tyler Graham <tyler.graham.prog@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-stage-2": "^6.1.18",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
+  },
+  "peerDependencies": {
+    "react": ">=0.13.0 && <=0.15.0"
+  }
+}

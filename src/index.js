@@ -1,0 +1,88 @@
+import { createElement } from 'react';
+
+export const TAG_NAMES = [
+  'a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base',
+  'bdi', 'bdo', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption',
+  'cite', 'code', 'col', 'colgroup', 'dd', 'del', 'dfn', 'dir', 'div', 'dl',
+  'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form',
+  'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html',
+  'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend',
+  'li', 'link', 'map', 'mark', 'menu', 'meta', 'nav', 'noscript', 'object',
+  'ol', 'optgroup', 'option', 'p', 'param', 'pre', 'q', 'rp', 'rt', 'ruby', 's',
+  'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strong',
+  'style', 'sub', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th',
+  'thead', 'title', 'tr', 'u', 'ul', 'video'
+];
+
+const isString   = x => typeof x === 'string' && x.length > 0;
+const startsWith = (string, start) => string.indexOf(start) === 0;
+const isSelector = x => isString(x) && (startsWith(x, '.') || startsWith(x, '#'));
+const split      = (string, separator)  => string.split(separator);
+const subString  = (string, start, end) => string.substring(start, end);
+const isChildren = x => typeof x === 'string' || Array.isArray(x);
+const isFunction = x => typeof x === 'function';
+const getFnName  = fn => isFunction(fn) && (fn.displayName || fn.name || fn.toString().match(/^function\s*([^\s(]+)/)[1]);
+
+const parseSelector = selector => {
+  const classIdSplit = /([\.#]?[a-zA-Z0-9\u007F-\uFFFF_:-]+)/;
+  const parts        = split(selector, classIdSplit);
+
+  return parts.reduce((acc, part) => {
+
+    if(startsWith(part, '#')) {
+      acc.id = subString(part, 1);
+    } else if(startsWith(part, '.')) {
+      acc.className = `${acc.className} ${subString(part, 1)}`.trim();
+    }
+
+    return acc;
+  }, { className: '' });
+
+};
+
+export const h = nameOrType => (first, ...rest) => {
+
+  if(isSelector(first)) {
+    const selector = parseSelector(first);
+    const [ second = {}, ...remains ] = rest;
+
+    //selector, children
+    if(isChildren(second)) {
+      return createElement(nameOrType, selector, second);
+    }
+
+    //selector, props, children
+    let { className = '' } = second;
+    className = `${selector.className} ${className} `.trim();
+
+    return createElement(nameOrType, {...second, ...selector, className }, remains);
+  }
+
+  //children
+  if(isChildren(first)) {
+    return createElement(nameOrType, {}, first);
+  }
+
+  //props, children
+  return createElement(nameOrType, first, ...rest);
+};
+
+const flatten = (...args) => args.reduce((acc, arg) => {
+
+  if(isFunction(arg) || typeof arg === 'array') {
+    return acc.concat(arg);
+  }
+
+  if(typeof arg === 'object') {
+    return acc.concat(Object.keys(arg).reduce((arr, key) => arr.concat(arg[key]), []));
+  }
+
+  return acc;
+}, []);
+
+export default (...userTypes) =>
+  TAG_NAMES.concat(flatten(...userTypes)).reduce((exported, type) => {
+    const key = isFunction(type) ? getFnName(type) : type;
+    exported[key] = h(type)
+    return exported;
+  }, {});
