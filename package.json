@@ -4,8 +4,11 @@
   "description": "Terse syntax for hyperscript using react",
   "main": "index.js",
   "scripts": {
-    "build": "babel src/ --out-dir lib",
-    "test": "mocha -c --require babel-core/register ./test"
+    "build": "babel src --out-dir lib",
+    "test": "mocha -c --require babel-core/register ./test",
+    "prepublish": "npm run clean && npm run build",
+    "postversion": "git push && git push --tags",
+    "clean": "rimraf lib"
   },
   "keywords": [
     "hyperscript",
@@ -22,7 +25,8 @@
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-stage-2": "^6.1.18",
     "chai": "^3.4.1",
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "rimraf": "^2.4.4"
   },
   "peerDependencies": {
     "react": ">=0.13.0 && <=0.15.0"
