@@ -62,6 +62,10 @@ describe('DOM Component', function() {
 
 });
 
+describe('Helper Function', () => {
+  it('should create the factory function behind the scenes and apply it', () => compareComponents(createElement(c.ClassComponent), h(c.ClassComponent)));
+});
+
 describe('Custom Components', () => {
   it('should handle class components',       () => compareComponents(createElement(c.ClassComponent), c.ClassComponentH()));
   it('should handle function components',    () => compareComponents(createElement(c.FuncComponent), c.FuncComponentH()));

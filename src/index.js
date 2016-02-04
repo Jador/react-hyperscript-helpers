@@ -42,7 +42,7 @@ const parseSelector = selector => {
 
 };
 
-export const h = nameOrType => (first, ...rest) => {
+export const hh = nameOrType => (first, ...rest) => {
 
   if(isSelector(first)) {
     const selector = parseSelector(first);
@@ -73,8 +73,10 @@ export const h = nameOrType => (first, ...rest) => {
   }
 };
 
+const h = (nameOrType, ...rest) => hh(nameOrType)(...rest);
+
 module.exports = TAG_NAMES.reduce((exported, type) => {
   const key = isFunction(type) ? getFnName(type) : type;
-  exported[key] = h(type);
+  exported[key] = hh(type);
   return exported;
-}, { h });
+}, { h, hh });
