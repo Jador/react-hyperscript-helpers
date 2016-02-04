@@ -1,10 +1,12 @@
 import React from 'react';
 
-export class ClassComponent extends React.Component {
+import { h } from '../src';
+
+export const ClassComponent = class extends React.Component {
   render() {
     React.createElement('div', 'I am a component');
   }
-}
+};
 
 export const CreateClass = React.createClass({
   displayName: 'CreateClass',
@@ -12,3 +14,7 @@ export const CreateClass = React.createClass({
 });
 
 export const FuncComponent = () => React.createElement('div', 'I am a component');
+
+export const ClassComponentH = h(ClassComponent);
+export const CreateClassH    = h(CreateClass);
+export const FuncComponentH  = h(FuncComponent);

@@ -23,6 +23,8 @@ const isChildren = x => typeof x === 'string' || Array.isArray(x);
 const isFunction = x => typeof x === 'function';
 const getFnName  = fn => isFunction(fn) && (fn.displayName || fn.name || fn.toString().match(/^function\s*([^\s(]+)/)[1]);
 
+const flattenChildren = x => !Array.isArray(x) || x.length > 1 ? x : x[0];
+
 const parseSelector = selector => {
   const classIdSplit = /([\.#]?[a-zA-Z0-9\u007F-\uFFFF_:-]+)/;
   const parts        = split(selector, classIdSplit);
@@ -48,41 +50,31 @@ export const h = nameOrType => (first, ...rest) => {
 
     //selector, children
     if(isChildren(second)) {
-      return createElement(nameOrType, selector, second);
+      return createElement(nameOrType, selector, flattenChildren(second));
     }
 
     //selector, props, children
     let { className = '' } = second;
     className = `${selector.className} ${className} `.trim();
 
-    return createElement(nameOrType, {...second, ...selector, className }, remains);
+    return createElement(nameOrType, { ...second, ...selector, className }, flattenChildren(remains));
   }
 
   //children
   if(isChildren(first)) {
-    return createElement(nameOrType, {}, first);
+    return createElement(nameOrType, {}, flattenChildren(first));
   }
 
   //props, children
-  return createElement(nameOrType, first, ...rest);
+  if(rest.length > 0) {
+    return createElement(nameOrType, first, flattenChildren(rest));
+  } else {
+    return createElement(nameOrType, first);
+  }
 };
 
-const flatten = (...args) => args.reduce((acc, arg) => {
-
-  if(isFunction(arg) || typeof arg === 'array') {
-    return acc.concat(arg);
-  }
-
-  if(typeof arg === 'object') {
-    return acc.concat(Object.keys(arg).reduce((arr, key) => arr.concat(arg[key]), []));
-  }
-
-  return acc;
-}, []);
-
-export default (...userTypes) =>
-  TAG_NAMES.concat(flatten(...userTypes)).reduce((exported, type) => {
-    const key = isFunction(type) ? getFnName(type) : type;
-    exported[key] = h(type)
-    return exported;
-  }, {});
+module.exports = TAG_NAMES.reduce((exported, type) => {
+  const key = isFunction(type) ? getFnName(type) : type;
+  exported[key] = h(type);
+  return exported;
+}, { h });
