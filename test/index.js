@@ -1,12 +1,9 @@
 import { createElement } from 'react';
 import { expect } from 'chai';
 
-import fns, { TAG_NAMES } from '../src/';
+import { div, h } from '../src/';
 
 import * as c from './Component.js';
-import { FuncComponent as f } from './Component.js';
-
-var { div, ClassComponent, CreateClass, FuncComponent } = fns(c);
 
 describe('DOM Component', function() {
   it('should be correct dom node', () =>
@@ -65,32 +62,14 @@ describe('DOM Component', function() {
 
 });
 
-describe('Custom Components', () => {
-  it('should handle class components',       () => compareComponents(createElement(c.ClassComponent), ClassComponent()));
-  it('should handle function components',    () => compareComponents(createElement(c.FuncComponent), FuncComponent()));
-  it('should handle createClass components', () => compareComponents(createElement(c.CreateClass), CreateClass()));
+describe('Helper Function', () => {
+  it('should create the factory function behind the scenes and apply it', () => compareComponents(createElement(c.ClassComponent), h(c.ClassComponent)));
 });
 
-describe('Bootstrapping Function', () => {
-  it('should accept an array of components', () => {
-    const x = fns([c.ClassComponent, c.FuncComponent]);
-    expect(x.ClassComponent).to.exist;
-    expect(x.FuncComponent).to.exist;
-  });
-
-  it('should accept on object of components', () => {
-    const x = fns(c);
-    expect(x.ClassComponent).to.exist;
-    expect(x.FuncComponent).to.exist;
-  });
-
-  it('should accept components as arguments', () => {
-    const x = fns(c.ClassComponent, c.FuncComponent);
-    expect(x.ClassComponent).to.exist;
-    expect(x.FuncComponent).to.exist;
-  });
-
-  it('should behave correctly even if import is aliased', () => expect(fns(f).FuncComponent).to.exist);
+describe('Custom Components', () => {
+  it('should handle class components',       () => compareComponents(createElement(c.ClassComponent), c.ClassComponentH()));
+  it('should handle function components',    () => compareComponents(createElement(c.FuncComponent), c.FuncComponentH()));
+  it('should handle createClass components', () => compareComponents(createElement(c.CreateClass), c.CreateClassH()));
 });
 
 const compareComponents = (a, b) => expect(a).to.deep.equal(b);
