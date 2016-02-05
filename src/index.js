@@ -20,8 +20,6 @@ const isSelector = x => isString(x) && (startsWith(x, '.') || startsWith(x, '#')
 const split      = (string, separator)  => string.split(separator);
 const subString  = (string, start, end) => string.substring(start, end);
 const isChildren = x => typeof x === 'string' || Array.isArray(x);
-const isFunction = x => typeof x === 'function';
-const getFnName  = fn => isFunction(fn) && (fn.displayName || fn.name || fn.toString().match(/^function\s*([^\s(]+)/)[1]);
 
 const flattenChildren = x => !Array.isArray(x) || x.length > 1 ? x : x[0];
 
@@ -76,7 +74,6 @@ export const hh = nameOrType => (first, ...rest) => {
 const h = (nameOrType, ...rest) => hh(nameOrType)(...rest);
 
 module.exports = TAG_NAMES.reduce((exported, type) => {
-  const key = isFunction(type) ? getFnName(type) : type;
-  exported[key] = hh(type);
+  exported[type] = hh(type);
   return exported;
 }, { h, hh });
