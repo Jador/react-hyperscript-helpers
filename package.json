@@ -1,6 +1,6 @@
 {
   "name": "react-hyperscript-helpers",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Terse syntax for hyperscript using react",
   "main": "./lib/index.js",
   "scripts": {
