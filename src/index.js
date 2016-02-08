@@ -55,7 +55,11 @@ export const hh = nameOrType => (first, ...rest) => {
     let { className = '' } = second;
     className = `${selector.className} ${className} `.trim();
 
-    return createElement(nameOrType, { ...second, ...selector, className }, flattenChildren(remains));
+    if(remains && remains.length > 0) {
+      return createElement(nameOrType, { ...second, ...selector, className }, flattenChildren(remains[0]));
+    } else {
+      return createElement(nameOrType, { ...second, ...selector, className });
+    }
   }
 
   //children
@@ -64,8 +68,8 @@ export const hh = nameOrType => (first, ...rest) => {
   }
 
   //props, children
-  if(rest.length > 0) {
-    return createElement(nameOrType, first, flattenChildren(rest));
+  if(rest && rest.length > 0) {
+    return createElement(nameOrType, first, flattenChildren(rest[0]));
   } else {
     return createElement(nameOrType, first);
   }

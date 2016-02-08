@@ -20,6 +20,12 @@ describe('DOM Component', function() {
   it('should work with multiple children', () =>
     compareComponents(createElement('div', null, ['hello', 'world']), div(['hello', 'world'])));
 
+  it('should work with no children', () => {
+    compareComponents(createElement('div'), div());
+    compareComponents(createElement('div', { className: 'foo' }), div('.foo'));
+    compareComponents(createElement('div', { foo: 'bar' }), div({ foo: 'bar' }));
+  });
+
   it('should have correct props and children', () => {
     const props = { a: 'b', c: 'd' };
     compareComponents(createElement('div', props, 'hello'), div(props, 'hello'));
@@ -57,6 +63,18 @@ describe('DOM Component', function() {
 
       expect(el1.props.children).to.equal('hello');
       expect(el2.props.children).to.deep.equal(['hello', 'world']);
+    });
+
+    it('should automatically pull the child out of a single element array', () => {
+      const el1 = div(['hello']);
+      const el2 = div('.foo', ['hello']);
+      const el3 = div({}, ['hello']);
+      const el4 = div('.foo', {}, ['hello']);
+
+      expect(el1.props.children).to.equal('hello');
+      expect(el2.props.children).to.equal('hello');
+      expect(el3.props.children).to.equal('hello');
+      expect(el4.props.children).to.equal('hello');
     });
   });
 
