@@ -3,9 +3,18 @@
   "version": "1.0.1",
   "description": "Terse syntax for hyperscript using react",
   "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
   "scripts": {
-    "build": "babel src --out-dir lib",
-    "test": "mocha -c --require babel-core/register ./test",
+    "build": "npm run build:babel && npm run build:ts-def",
+    "build:babel": "babel src --out-dir lib",
+    "build:ts-def": "babel-node ./generate-ts-def.js",
+    "test": "npm run test:mocha && npm run test:tsc",
+    "test:mocha": "mocha -c --require babel-core/register ./test",
+    "test:tsc": "npm run test:tsc:fake-install && npm run test:tsc:compile && npm run test:tsc:cleanup",
+    "test:tsc:clean-fake": "rm -f node_modules/react-hyperscript-helpers",
+    "test:tsc:fake-install": "npm run test:tsc:clean-fake && ln -s .. node_modules/react-hyperscript-helpers",
+    "test:tsc:compile": "tsc test/type-definitions.ts --module commonjs",
+    "test:tsc:cleanup": "npm run test:tsc:clean-fake && rm test/type-definitions.js",
     "prepublish": "npm run clean && npm run build",
     "postversion": "git push && git push --tags",
     "clean": "rimraf lib"
@@ -21,12 +30,14 @@
   "author": "Tyler Graham <tyler.graham.prog@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.5.1",
     "babel-core": "^6.2.1",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-stage-2": "^6.1.18",
     "chai": "^3.4.1",
     "mocha": "^2.3.4",
-    "rimraf": "^2.4.4"
+    "rimraf": "^2.4.4",
+    "typescript": "^1.7.5"
   },
   "peerDependencies": {
     "react": ">=0.13.0 && <=0.15.0"
