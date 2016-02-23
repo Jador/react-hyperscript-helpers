@@ -28,6 +28,7 @@
     "react-hyperscript-helpers"
   ],
   "author": "Tyler Graham <tyler.graham.prog@gmail.com>",
+  "repository": "github:Jador/react-hyperscript-helpers",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.5.1",
