@@ -5,7 +5,9 @@ import { div, h } from '../src/';
 
 import * as c from './Component.js';
 
-describe('DOM Component', function () {
+const compareComponents = (a, b) => expect(a).to.deep.equal(b);
+
+describe('DOM Component', () => {
   it('should be correct dom node', () =>
     expect(createElement('div').nodeName).to.equal(div().nodeName));
 
@@ -89,5 +91,3 @@ describe('Custom Components', () => {
   it('should handle function components', () => compareComponents(createElement(c.FuncComponent), c.FuncComponentH()));
   it('should handle createClass components', () => compareComponents(createElement(c.CreateClass), c.CreateClassH()));
 });
-
-const compareComponents = (a, b) => expect(a).to.deep.equal(b);
