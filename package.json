@@ -8,6 +8,7 @@
     "build": "npm run build:babel && npm run build:ts-def",
     "build:babel": "babel src --out-dir lib",
     "build:ts-def": "babel-node ./generate-ts-def.js",
+    "lint": "eslint src test",
     "test": "npm run test:mocha && npm run test:tsc",
     "test:mocha": "mocha -c -r babel-core/register ./test",
     "test:tsc": "npm run test:tsc:fake-install && npm run test:tsc:compile && npm run test:tsc:cleanup",

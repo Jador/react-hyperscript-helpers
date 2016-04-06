@@ -5,7 +5,7 @@ export { TAG_NAMES };
 const isString   = x => typeof x === 'string' && x.length > 0;
 const startsWith = (string, start) => string.indexOf(start) === 0;
 const isSelector = x => isString(x) && (startsWith(x, '.') || startsWith(x, '#'));
-const split      = (string, separator)  => string.split(separator);
+const split      = (string, separator) => string.split(separator);
 const subString  = (string, start, end) => string.substring(start, end);
 const isChildren = x => typeof x === 'string' || Array.isArray(x);
 
@@ -17,9 +17,9 @@ const parseSelector = selector => {
 
   return parts.reduce((acc, part) => {
 
-    if(startsWith(part, '#')) {
+    if (startsWith(part, '#')) {
       acc.id = subString(part, 1);
-    } else if(startsWith(part, '.')) {
+    } else if (startsWith(part, '.')) {
       acc.className = `${acc.className} ${subString(part, 1)}`.trim();
     }
 
@@ -30,37 +30,37 @@ const parseSelector = selector => {
 
 export const hh = nameOrType => (first, ...rest) => {
 
-  if(isSelector(first)) {
+  if (isSelector(first)) {
     const selector = parseSelector(first);
     const [ second = {}, ...remains ] = rest;
 
-    //selector, children
-    if(isChildren(second)) {
+    // selector, children
+    if (isChildren(second)) {
       return createElement(nameOrType, selector, flattenChildren(second));
     }
 
-    //selector, props, children
+    // selector, props, children
     let { className = '' } = second;
     className = `${selector.className} ${className} `.trim();
 
-    if(remains && remains.length > 0) {
+    if (remains && remains.length > 0) {
       return createElement(nameOrType, { ...second, ...selector, className }, flattenChildren(remains[0]));
-    } else {
-      return createElement(nameOrType, { ...second, ...selector, className });
     }
+
+    return createElement(nameOrType, { ...second, ...selector, className });
   }
 
-  //children
-  if(isChildren(first)) {
+  // children
+  if (isChildren(first)) {
     return createElement(nameOrType, {}, flattenChildren(first));
   }
 
-  //props, children
-  if(rest && rest.length > 0) {
+  // props, children
+  if (rest && rest.length > 0) {
     return createElement(nameOrType, first, flattenChildren(rest[0]));
-  } else {
-    return createElement(nameOrType, first);
   }
+
+  return createElement(nameOrType, first);
 };
 
 const h = (nameOrType, ...rest) => hh(nameOrType)(...rest);

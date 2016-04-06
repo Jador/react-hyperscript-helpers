@@ -8,6 +8,11 @@
     ecmaFeatures:
       experimentalObjectRestSpread: true
   rules:
+    max-len: 1
+    array-bracket-spacing:
+      - error
+      - always
+    padded-blocks: 0
     no-multi-spaces:
       - error
       -
