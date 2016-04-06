@@ -1,6 +1,5 @@
 import React from 'react';
 import { TAG_NAMES } from './tag-names.js';
-export { TAG_NAMES };
 
 const isArray    = x => Array.isArray(x);
 const isString   = x => typeof x === 'string' && x.length > 0;
