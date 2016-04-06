@@ -9,7 +9,6 @@ const isChildren = x => /string|number|boolean/.test(typeof x) || isArray(x);
 const startsWith = (string, start) => string.indexOf(start) === 0;
 const split      = (string, separator) => string.split(separator);
 const subString  = (string, start, end) => string.substring(start, end);
-const hasKey     = x => x && x.some(child => child.hasOwnProperty('key'));
 
 const parseSelector = selector => {
   const classIdSplit = /([\.#]?[a-zA-Z0-9\u007F-\uFFFF_:-]+)/;
@@ -28,17 +27,13 @@ const parseSelector = selector => {
 
 };
 
-const createElement = (nameOrType, props, children) => {
-  const args = [ nameOrType ];
+const createElement = (nameOrType, props = {}, children = []) => {
+  const args = [ nameOrType, props ];
 
-  if (props) args.push(props);
-
-  if (children) {
-    if (!isArray(children) || hasKey(children)) {
-      args.push(children);
-    } else {
-      args.push(...children);
-    }
+  if (!isArray(children)) {
+    args.push(children);
+  } else {
+    args.push(...children);
   }
 
   return React.createElement.apply(React, args);
