@@ -1,0 +1,17 @@
+---
+  extends: airbnb
+  env:
+    node: true
+    mocha: true
+    browser: true
+  parserOptions:
+    ecmaFeatures:
+      experimentalObjectRestSpread: true
+  rules:
+    no-multi-spaces:
+      - error
+      -
+        exceptions:
+          VariableDeclarator: true
+          ImportDeclaration: true
+          Property: true
