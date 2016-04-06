@@ -9,6 +9,7 @@
       experimentalObjectRestSpread: true
   rules:
     max-len: 1
+    comma-dangle: 0
     array-bracket-spacing:
       - error
       - always
