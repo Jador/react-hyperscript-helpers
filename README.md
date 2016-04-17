@@ -15,8 +15,7 @@ The api has been greatly improved, making the library usable for actual projects
 * No need to litter code with `null` values when a component doesn't have any props
 * No need for a JSX syntax highlighter
 * No need for a JSX linter
-* JSX elements are just functions anyway, why try to hide what it is?
-* HTML markup is ugly
+* JSX elements are just functions anyway
 
 ### Cons
 * Most react documentation is written with JSX so it might be unfamiliar syntax
@@ -82,6 +81,11 @@ export default () => div('.foo', [
   h(SomeOtherComponent, { foo: 'bar' })
 ]);
 ```
+
+## Alternatives
+
+* https://github.com/ohanhi/hyperscript-helpers
+* https://github.com/mlmorg/react-hyperscript
 
 ## References
 
