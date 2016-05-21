@@ -82,6 +82,88 @@ export default () => div('.foo', [
 ]);
 ```
 
+### Comparative Examples
+
+Presentational components used in the Redux examples:
+http://redux.js.org/docs/basics/ExampleTodoList.html#presentational-components
+
+#### Using JSX
+```js
+import React from 'react';
+
+const Todo = ({ onClick, completed, text }) => (
+  <li
+    onClick={onClick}
+    style={{
+      textDecoration: completed ? 'line-through' : 'none'
+    }}
+  >
+    {text}
+  </li>
+);
+
+const TodoList = ({ todos, onTodoClick }) => (
+  <ul>
+    {todos.map(todo =>
+      <Todo
+        key={todo.id}
+        {...todo}
+        onClick={() => onTodoClick(todo.id)}
+      />
+    )}
+  </ul>
+);
+```
+
+#### Using `React.createElement`
+```js
+import { createFactory } from 'react';
+import { ul, li } from 'react-dom';
+
+const Todo = ({ onClick, completed, text }) => (
+  li({
+    onClick,
+    style: { textDecoration: completed ? 'line-through' : 'none' }
+  }, text)
+);
+
+const TodoItem = createFactory(Todo);
+
+const TodoList = ({ todos, onTodoClick }) => (
+  ul(null,
+    {todos.map(todo =>
+      TodoItem({
+        key: todo.id,
+        {...todo},
+        onClick: () => onTodoClick(todo.id)
+      })
+    )}
+  )
+)
+```
+
+#### Using react-hyperscript-helpers
+```js
+import { h, ul, li } from 'react-hyperscript-helpers';
+
+const Todo = ({ onClick, completed, text }) => (
+  li({
+    onClick,
+    style: { textDecoration: completed ? 'line-through' : 'none' }
+  }, text)
+);
+
+const TodoList = ({ todos, onTodoClick }) => (
+  ul({todos.map(todo =>
+    h(Todo, {
+      key: todo.id,
+      {...todo},
+      onClick: () => onTodoClick(todo.id)
+    })
+  )})
+)
+```
+
 ## Alternatives
 
 * https://github.com/ohanhi/hyperscript-helpers
