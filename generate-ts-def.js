@@ -8,28 +8,28 @@ declare interface ClassComponent<P> {
   new(...args): Component<P, any>;
 }
 declare interface StatelessComponent<P> {
-  (props: P): ReactElement;
+  (props: P): ReactElement<P>;
 }
 declare type Children = ReactChild | ReactChild[];
 declare type ReactComponent<P> = ClassComponent<P> | StatelessComponent<P>;
 
-export function hh(tag: string): (selector?: any, properties?: any, children?: Children) => ReactElement;
-export function hh(component: ReactComponent<any>): (selector?: any, properties?: any, children?: Children) => ReactElement;
+export function hh<P>(tag: string): (selector?: any, properties?: any, children?: Children) => ReactElement<P>;
+export function hh<P>(component: ReactComponent<any>): (selector?: any, properties?: any, children?: Children) => ReactElement<P>;
 
-export function h(tag: string, children?: Children): ReactElement;
-export function h(tag: string, selector: string, children?: Children): ReactElement;
-export function h(tag: string, selector: string, properties: HTMLAttributes, children?: Children): ReactElement;
-export function h(tag: string, properties: HTMLAttributes, children?: Children): ReactElement;
-export function h(component: ReactComponent<any>, children?: Children): ReactElement;
-export function h(component: ReactComponent<any>, selector: string, children?: Children): ReactElement;
-export function h<P>(component: ReactComponent<P>, selector: string, properties: P & Props<any>, children?: Children): ReactElement;
-export function h<P>(component: ReactComponent<P>, properties: P & Props<any>, children?: Children): ReactElement;
+export function h<P>(tag: string, children?: Children): ReactElement<P>;
+export function h<P>(tag: string, selector: string, children?: Children): ReactElement<P>;
+export function h<P>(tag: string, selector: string, properties: HTMLAttributes, children?: Children): ReactElement<P>;
+export function h<P>(tag: string, properties: HTMLAttributes, children?: Children): ReactElement<P>;
+export function h<P>(component: ReactComponent<any>, children?: Children): ReactElement<P>;
+export function h<P>(component: ReactComponent<any>, selector: string, children?: Children): ReactElement<P>;
+export function h<P>(component: ReactComponent<P>, selector: string, properties: P & Props<any>, children?: Children): ReactElement<P>;
+export function h<P>(component: ReactComponent<P>, properties: P & Props<any>, children?: Children): ReactElement<P>;
 ${
   TAG_NAMES.reduce((accum, tag) => `${accum}
-export function ${tag}(children?: Children): ReactElement;
-export function ${tag}(selector: string, children?: Children): ReactElement;
-export function ${tag}(selector: string, properties: HTMLAttributes, children?: Children): ReactElement;
-export function ${tag}(properties: HTMLAttributes, children?: Children): ReactElement;`
+export function ${tag}<P>(children?: Children): ReactElement<P>;
+export function ${tag}<P>(selector: string, children?: Children): ReactElement<P>;
+export function ${tag}<P>(selector: string, properties: HTMLAttributes, children?: Children): ReactElement<P>;
+export function ${tag}<P>(properties: HTMLAttributes, children?: Children): ReactElement<P>;`
   , ``)
 }`;
 

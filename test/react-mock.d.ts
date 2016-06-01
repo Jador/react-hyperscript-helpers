@@ -9,7 +9,7 @@ declare module 'react' {
     ariaHidden: boolean;
   }
 
-  export type ReactElement = {};
+  export type ReactElement<P> = {};
 
-  export type ReactChild = ReactElement;
+  export type ReactChild = ReactElement<any>;
 }
