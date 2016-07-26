@@ -78,6 +78,24 @@ describe('DOM Component', () => {
       expect(el3.props.children).to.equal('hello');
       expect(el4.props.children).to.equal('hello');
     });
+
+    it('should have `test` as the id and `foo` as the className', () => {
+      const el = div('#test.foo');
+      expect(el.props.id).to.equal('test');
+      expect(el.props.className).to.equal('foo');
+    });
+
+    it('should have `test` as the id and `foo` as the className', () => {
+      const el = div('#test .foo');
+      expect(el.props.id).to.equal('test');
+      expect(el.props.className).to.equal('foo');
+    });
+
+    it('should have `test` as the id and `foo bar` as the className', () => {
+      const el = div('#test.foo.bar');
+      expect(el.props.id).to.equal('test');
+      expect(el.props.className).to.equal('foo bar');
+    });
   });
 
 });
