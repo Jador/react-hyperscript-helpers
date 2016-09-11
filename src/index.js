@@ -26,7 +26,12 @@ const parseSelector = selector => {
 
 };
 
-const createElement = (nameOrType, props = {}, children = []) => {
+const createElement = (nameOrType, properties = {}, children = []) => {
+  if (properties.isRendered !== undefined && !properties.isRendered) {
+    return null;
+  }
+
+  const { isRendered, ...props } = properties;
   const args = [ nameOrType, props ];
 
   if (!isArray(children)) {

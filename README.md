@@ -82,6 +82,32 @@ export default () => div('.foo', [
 ]);
 ```
 
+## isRendered
+
+The `isRendered` property will determine whether or not a react component gets rendered.
+
+```javascript
+const Khaled = ({ display }) => (
+  div({ isRendered: display }, [
+    span('Another one'),
+    span('Another one'),
+    span('Another one'),
+  ]);
+);
+
+h(Khaled, { display: false });
+// -> null
+
+h(Khaled, { display: true });
+/* ->
+  <div>
+    <span>Another one</span>
+    <span>Another one</span>
+    <span>Another one</span>
+  </div>
+*/
+```
+
 ## Alternatives
 
 * https://github.com/uber/r-dom
