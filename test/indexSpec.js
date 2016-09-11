@@ -98,6 +98,22 @@ describe('DOM Component', () => {
     });
   });
 
+  describe('`isRendered` property', () => {
+    it('component should return `null` when `isRendered` is `false`', () => {
+      const el = div({ isRendered: false });
+      expect(el).to.equal(null);
+    });
+
+    it('component should return the react element when `isRendered` is `true`', () => {
+      const el = div({ isRendered: true }, 'Some text');
+      compareComponents(createElement('div', null, 'Some text'), el);
+    });
+
+    it('should not have `isRendered` property in the rendered react component props', () => {
+      const el = div({ isRendered: true, className: 'foobar' });
+      expect(el.props).to.deep.equal({ className: 'foobar' });
+    });
+  });
 });
 
 describe('Helper Function', () => {
