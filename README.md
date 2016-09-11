@@ -84,6 +84,7 @@ export default () => div('.foo', [
 
 ## Alternatives
 
+* https://github.com/uber/r-dom
 * https://github.com/ohanhi/hyperscript-helpers
 * https://github.com/mlmorg/react-hyperscript
 
