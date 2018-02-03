@@ -96,7 +96,7 @@ export const hh = nameOrType => (first, second, third, ...rest) => {
   return createElement(nameOrType, first);
 };
 
-const h = (nameOrType, ...rest) => hh(nameOrType)(...rest);
+export const h = (nameOrType, ...rest) => hh(nameOrType)(...rest);
 
 module.exports = TAG_NAMES.reduce(
   (exported, type) => {
