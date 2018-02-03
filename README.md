@@ -1,5 +1,7 @@
 # react-hyperscript-helpers
 
+### NOTE: This project is a fork of Jador's work [Jador's work](https://github.com/Jador/react-hyperscript-helpers)
+
 [![npm version](https://badge.fury.io/js/react-hyperscript-helpers.svg)](https://badge.fury.io/js/react-hyperscript-helpers) [![Circle CI](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master.svg?style=svg)](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master)
 
 A library inspired by [hyperscript-helpers](https://github.com/ohanhi/hyperscript-helpers) and [react-hyperscript](https://github.com/mlmorg/react-hyperscript).
@@ -28,8 +30,6 @@ The api has been greatly improved, making the library usable for actual projects
 ## API
 
 For elements that have already been compiled by `hh`:
-
-# NOTE: This project is a fork of Jador's work [Jador's work](https://github.com/Jador/react-hyperscript-helpers)
 
 ```js
 tagName(selector);
