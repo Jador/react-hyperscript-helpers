@@ -1,6 +1,6 @@
 # react-hyperscript-helpers
 
-### NOTE: This project is a fork of Jador's work [Jador's work](https://github.com/Jador/react-hyperscript-helpers)
+### NOTE: This project is a fork of Jador's work [Jador's work](https://github.com/Jador/react-hyperscript-helpers). It uses an arrayless syntax to avoid excessive brackets.
 
 [![npm version](https://badge.fury.io/js/react-hyperscript-helpers.svg)](https://badge.fury.io/js/react-hyperscript-helpers) [![Circle CI](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master.svg?style=svg)](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master)
 
