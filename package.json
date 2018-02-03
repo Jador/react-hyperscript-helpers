@@ -1,5 +1,5 @@
 {
-  "name": "react-hyperscript-helpers",
+  "name": "@jhessin/react-hyperscript-helpers",
   "version": "1.2.0",
   "description": "Terse syntax for hyperscript using react avoiding the use of brackets",
   "main": "./lib/index.js",
