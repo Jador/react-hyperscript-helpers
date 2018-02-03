@@ -1,5 +1,5 @@
 {
-  "name": "jhessin/react-hyperscript-helpers",
+  "name": "react-hyperscript-helpers",
   "version": "1.2.0",
   "description": "Terse syntax for hyperscript using react avoiding the use of brackets",
   "main": "./lib/index.js",
@@ -30,8 +30,8 @@
     "react-hyperscript",
     "react-hyperscript-helpers"
   ],
-  "author": "Tyler Graham <tyler.graham.prog@gmail.com>",
-  "repository": "github:Jador/react-hyperscript-helpers",
+  "author": "Jim Hessin <jhessin@gmail.com> & Tyler Graham <tyler.graham.prog@gmail.com>",
+  "repository": "github:jhessin/react-hyperscript-helpers",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.5.1",
