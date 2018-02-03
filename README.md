@@ -1,6 +1,6 @@
 # react-hyperscript-helpers
 
-### NOTE: This project is a fork of Jador's work [Jador's work](https://github.com/Jador/react-hyperscript-helpers). It uses an arrayless syntax to avoid excessive brackets.
+### NOTE: This project is a fork of Jador's work [Jador's work](https://github.com/Jador/react-hyperscript-helpers). It uses an arrayless syntax to avoid excessive brackets. If you don't mind using brackets to wrap your objects you should probably use his package.
 
 [![npm version](https://badge.fury.io/js/react-hyperscript-helpers.svg)](https://badge.fury.io/js/react-hyperscript-helpers) [![Circle CI](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master.svg?style=svg)](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master)
 
@@ -29,6 +29,8 @@ The api has been greatly improved, making the library usable for actual projects
 
 ## API
 
+First install using `npm install @jhessin/react-hyperscript-helpers --save` or `yarn add @jhessin/react-hyperscript-helpers`
+
 For elements that have already been compiled by `hh`:
 
 ```js
@@ -43,7 +45,7 @@ tagName(selector, props, ...children);
 For custom components or tags not compiled by `hh`:
 
 ```js
-import { h } from 'react-hyperscript-helpers';
+import { h } from '@jhessin/react-hyperscript-helpers';
 
 h(component, selector);
 h(component, props);
@@ -63,7 +65,7 @@ h(component, selector, props, ...children);
 DOM components are really easy to use. Just import and go.
 
 ```javascript
-import { div, h2 } from 'react-hyperscript-helpers';
+import { div, h2 } from '@jhessin/react-hyperscript-helpers';
 
 export default () => div('.foo', h2('Hello, world'));
 ```
@@ -72,14 +74,14 @@ For custom components you can either create a factory function or use the `h` fu
 
 ```javascript
 //MyComponent
-import { div, hh } from 'react-hyperscript-helpers';
+import { div, hh } from '@jhessin/react-hyperscript-helpers';
 
 export default hh(() => div('Nifty Component'));
 
 //Container
 import MyComponent        from './MyComponent';
 import SomeOtherComponent from 'who-whats-its';
-import { div, h }         from  'react-hyperscript-helpers';
+import { div, h }         from  '@jhessin/react-hyperscript-helpers';
 
 export default () => div('.foo',
   MyComponent(),
