@@ -6,7 +6,7 @@ const isString = x => typeof x === 'string' && x.length > 0;
 const startsWith = (string, start) => string.indexOf(start) === 0;
 const isSelector = x => isString(x) && (startsWith(x, '.') || startsWith(x, '#'));
 const isChildren = x =>
-  /string|number|boolean|function/.test(typeof x) || isArray(x) || x instanceof React.Component;
+  /string|number|boolean|function/.test(typeof x) || isArray(x) || React.isValidElement(x);
 const split = (string, separator) => string.split(separator);
 const subString = (string, start, end) => string.substring(start, end);
 
@@ -27,7 +27,6 @@ const parseSelector = selector => {
     { className: '' }
   );
 };
-
 const createElement = (nameOrType, properties = {}, children = []) => {
   if (properties.isRendered !== undefined && !properties.isRendered) {
     return null;
@@ -47,15 +46,22 @@ const createElement = (nameOrType, properties = {}, children = []) => {
 
 export const hh = nameOrType => (first, second, third, ...rest) => {
   rest = rest || [];
+  const parseChild = child => {
+    if (child instanceof Array) {
+      rest = [ ...child, ...rest ];
+    } else {
+      rest = [ child, ...rest ];
+    }
+  };
   if (isSelector(first)) {
     const selector = parseSelector(first);
 
     // selector, ...children
     if (isChildren(second)) {
       if (isChildren(third)) {
-        rest.splice(0, 0, third);
+        parseChild(third);
       }
-      rest.splice(0, 0, second);
+      parseChild(second);
       return createElement(nameOrType, selector, rest);
     }
 
@@ -65,7 +71,7 @@ export const hh = nameOrType => (first, second, third, ...rest) => {
     const props = { ...second, ...selector, className };
 
     if (isChildren(third)) {
-      rest.splice(0, 0, third);
+      parseChild(third);
       return createElement(nameOrType, props, rest);
     }
 
@@ -76,27 +82,27 @@ export const hh = nameOrType => (first, second, third, ...rest) => {
   if (isChildren(first)) {
     if (isChildren(second)) {
       if (isChildren(third)) {
-        rest.splice(0, 0, third);
+        parseChild(third);
       }
-      rest.splice(0, 0, second);
+      parseChild(second);
     }
-    rest.splice(0, 0, first);
+    parseChild(first);
     return createElement(nameOrType, {}, rest);
   }
 
   // props, children
   if (isChildren(second)) {
     if (isChildren(third)) {
-      rest.splice(0, 0, third);
+      parseChild(third);
     }
-    rest.splice(0, 0, second);
+    parseChild(second);
     return createElement(nameOrType, first, rest);
   }
 
   return createElement(nameOrType, first);
 };
 
-export const h = (nameOrType, ...rest) => hh(nameOrType)(...rest);
+const h = (nameOrType, ...rest) => hh(nameOrType)(...rest);
 
 module.exports = TAG_NAMES.reduce(
   (exported, type) => {
