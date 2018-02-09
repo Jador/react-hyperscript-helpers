@@ -30,7 +30,7 @@
     "react-hyperscript",
     "react-hyperscript-helpers"
   ],
-  "author": "Jim Hessin <jhessin@gmail.com> & Tyler Graham <tyler.graham.prog@gmail.com>",
+  "author": "Tyler Graham <tyler.graham.prog@gmail.com>",
   "repository": "github:jhessin/react-hyperscript-helpers",
   "license": "ISC",
   "devDependencies": {
