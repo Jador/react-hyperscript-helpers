@@ -1,4 +1,7 @@
 # react-hyperscript-helpers
+
+### NOTE: This project is a fork of Jador's work [Jador's work](https://github.com/Jador/react-hyperscript-helpers). It uses an arrayless syntax to avoid excessive brackets. If you don't mind using brackets to wrap your objects you should probably use his package.
+
 [![npm version](https://badge.fury.io/js/react-hyperscript-helpers.svg)](https://badge.fury.io/js/react-hyperscript-helpers) [![Circle CI](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master.svg?style=svg)](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master)
 
 A library inspired by [hyperscript-helpers](https://github.com/ohanhi/hyperscript-helpers) and [react-hyperscript](https://github.com/mlmorg/react-hyperscript).
@@ -10,6 +13,7 @@ The api has been greatly improved, making the library usable for actual projects
 ## Why?
 
 ### Pros
+
 * Consistent javascript syntax
 * Mistyped components return errors
 * No need to litter code with `null` values when a component doesn't have any props
@@ -18,34 +22,37 @@ The api has been greatly improved, making the library usable for actual projects
 * JSX elements are just functions anyway
 
 ### Cons
+
 * Most react documentation is written with JSX so it might be unfamiliar syntax
 * A lot of library components use JSX, so unless the compiled version of the library is used
-a JSX transform will be necessary
+  a JSX transform will be necessary
 
 ## API
+
+First install using `npm install @jhessin/react-hyperscript-helpers --save` or `yarn add @jhessin/react-hyperscript-helpers`
 
 For elements that have already been compiled by `hh`:
 
 ```js
-tagName(selector)
-tagName(props)
-tagName(children)
-tagName(props, children)
-tagName(selector, children)
-tagName(selector, props, children)
+tagName(selector);
+tagName(props);
+tagName(...children);
+tagName(props, ...children);
+tagName(selector, ...children);
+tagName(selector, props, ...children);
 ```
 
 For custom components or tags not compiled by `hh`:
 
 ```js
-import { h } from 'react-hyperscript-helpers';
+import { h } from '@jhessin/react-hyperscript-helpers';
 
-h(component, selector)
-h(component, props)
-h(component, children)
-h(component, props, children)
-h(component, selector, children)
-h(component, selector, props, children)
+h(component, selector);
+h(component, props);
+h(component, ...children);
+h(component, props, ...children);
+h(component, selector, ...children);
+h(component, selector, props, ...children);
 ```
 
 * `component` is an HTML element as a string or a react function/class custom element
@@ -58,28 +65,28 @@ h(component, selector, props, children)
 DOM components are really easy to use. Just import and go.
 
 ```javascript
-import { div, h2 } from 'react-hyperscript-helpers';
+import { div, h2 } from '@jhessin/react-hyperscript-helpers';
 
-export default () => div('.foo', [ h2('Hello, world') ]);
+export default () => div('.foo', h2('Hello, world'));
 ```
 
 For custom components you can either create a factory function or use the `h` function, similar to react-hyperscript.
 
 ```javascript
 //MyComponent
-import { div, hh } from 'react-hyperscript-helpers';
+import { div, hh } from '@jhessin/react-hyperscript-helpers';
 
 export default hh(() => div('Nifty Component'));
 
 //Container
 import MyComponent        from './MyComponent';
 import SomeOtherComponent from 'who-whats-its';
-import { div, h }         from  'react-hyperscript-helpers';
+import { div, h }         from  '@jhessin/react-hyperscript-helpers';
 
-export default () => div('.foo', [
+export default () => div('.foo',
   MyComponent(),
   h(SomeOtherComponent, { foo: 'bar' })
-]);
+);
 ```
 
 ## isRendered
@@ -88,11 +95,11 @@ The `isRendered` property will determine whether or not a react component gets r
 
 ```javascript
 const Khaled = ({ display }) => (
-  div({ isRendered: display }, [
+  div({ isRendered: display },
     span('Another one'),
     span('Another one'),
     span('Another one'),
-  ]);
+  );
 );
 
 h(Khaled, { display: false });

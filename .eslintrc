@@ -21,3 +21,5 @@
           VariableDeclarator: true
           ImportDeclaration: true
           Property: true
+    no-param-reassign:
+      - off

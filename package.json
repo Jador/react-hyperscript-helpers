@@ -1,7 +1,7 @@
 {
-  "name": "react-hyperscript-helpers",
+  "name": "@jhessin/react-hyperscript-helpers",
   "version": "1.2.0",
-  "description": "Terse syntax for hyperscript using react",
+  "description": "Terse syntax for hyperscript using react avoiding the use of brackets",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "scripts": {
@@ -11,9 +11,11 @@
     "lint": "eslint src test",
     "test": "npm run test:mocha && npm run test:tsc",
     "test:mocha": "mocha -c -r babel-core/register ./test/**/*Spec.js",
-    "test:tsc": "npm run build && npm run test:tsc:fake-install && npm run test:tsc:compile && npm run test:tsc:cleanup",
+    "test:tsc":
+      "npm run build && npm run test:tsc:fake-install && npm run test:tsc:compile && npm run test:tsc:cleanup",
     "test:tsc:clean-fake": "rm -f node_modules/react-hyperscript-helpers",
-    "test:tsc:fake-install": "npm run test:tsc:clean-fake && ln -s .. node_modules/react-hyperscript-helpers",
+    "test:tsc:fake-install":
+      "npm run test:tsc:clean-fake && ln -s .. node_modules/react-hyperscript-helpers",
     "test:tsc:compile": "tsc test/type-definitions.ts --module commonjs",
     "test:tsc:cleanup": "npm run test:tsc:clean-fake && rm test/type-definitions.js",
     "prepublish": "npm run clean && npm run build",
@@ -28,8 +30,8 @@
     "react-hyperscript",
     "react-hyperscript-helpers"
   ],
-  "author": "Tyler Graham <tyler.graham.prog@gmail.com>",
-  "repository": "github:Jador/react-hyperscript-helpers",
+  "author": "Jim Hessin <jhessin@gmail.com> & Tyler Graham <tyler.graham.prog@gmail.com>",
+  "repository": "github:jhessin/react-hyperscript-helpers",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.5.1",

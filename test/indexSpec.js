@@ -20,7 +20,7 @@ describe('DOM Component', () => {
     compareComponents(createElement('div', null, 'hello'), div('hello')));
 
   it('should work with multiple children', () =>
-    compareComponents(createElement('div', null, [ 'hello', 'world' ]), div([ 'hello', 'world' ])));
+    compareComponents(createElement('div', null, 'hello', 'world'), div('hello', 'world')));
 
   it('should work with no children', () => {
     compareComponents(createElement('div'), div());
@@ -61,17 +61,17 @@ describe('DOM Component', () => {
 
     it('should have the correct children when props are not provided', () => {
       const el1 = div('.foo', 'hello');
-      const el2 = div('.foo', [ 'hello', 'world' ]);
+      const el2 = div('.foo', 'hello', 'world');
 
       expect(el1.props.children).to.equal('hello');
-      expect(el2.props.children).to.deep.equal([ 'hello', 'world' ]);
+      expect(el2.props.children).to.deep.equal('hello', 'world');
     });
 
     it('should automatically pull the child out of a single element array', () => {
-      const el1 = div([ 'hello' ]);
-      const el2 = div('.foo', [ 'hello' ]);
-      const el3 = div({}, [ 'hello' ]);
-      const el4 = div('.foo', {}, [ 'hello' ]);
+      const el1 = div('hello');
+      const el2 = div('.foo', 'hello');
+      const el3 = div({}, 'hello');
+      const el4 = div('.foo', {}, 'hello');
 
       expect(el1.props.children).to.equal('hello');
       expect(el2.props.children).to.equal('hello');
@@ -117,11 +117,15 @@ describe('DOM Component', () => {
 });
 
 describe('Helper Function', () => {
-  it('should create the factory function behind the scenes and apply it', () => compareComponents(createElement(c.ClassComponent), h(c.ClassComponent)));
+  it('should create the factory function behind the scenes and apply it', () =>
+    compareComponents(createElement(c.ClassComponent), h(c.ClassComponent)));
 });
 
 describe('Custom Components', () => {
-  it('should handle class components', () => compareComponents(createElement(c.ClassComponent), c.ClassComponentH()));
-  it('should handle function components', () => compareComponents(createElement(c.FuncComponent), c.FuncComponentH()));
-  it('should handle createClass components', () => compareComponents(createElement(c.CreateClass), c.CreateClassH()));
+  it('should handle class components', () =>
+    compareComponents(createElement(c.ClassComponent), c.classComponentH()));
+  it('should handle function components', () =>
+    compareComponents(createElement(c.FuncComponent), c.funcComponentH()));
+  it('should handle createClass components', () =>
+    compareComponents(createElement(c.CreateClass), c.createClassH()));
 });
