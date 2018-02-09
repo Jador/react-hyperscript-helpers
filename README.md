@@ -1,7 +1,5 @@
 # react-hyperscript-helpers
 
-### NOTE: This project is a fork of Jador's work [Jador's work](https://github.com/Jador/react-hyperscript-helpers). It uses an arrayless syntax to avoid excessive brackets. If you don't mind using brackets to wrap your objects you should probably use his package.
-
 [![npm version](https://badge.fury.io/js/react-hyperscript-helpers.svg)](https://badge.fury.io/js/react-hyperscript-helpers) [![Circle CI](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master.svg?style=svg)](https://circleci.com/gh/Jador/react-hyperscript-helpers/tree/master)
 
 A library inspired by [hyperscript-helpers](https://github.com/ohanhi/hyperscript-helpers) and [react-hyperscript](https://github.com/mlmorg/react-hyperscript).
