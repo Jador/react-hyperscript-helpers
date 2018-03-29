@@ -2,34 +2,50 @@ import fs from 'fs';
 import { TAG_NAMES } from './lib/tag-names.js';
 
 const typings =
-`import { Component, HTMLAttributes, Props, ReactChild, ReactElement } from 'react';
+`import { 
+  Props, 
+  ReactChild, 
+  ReactElement, 
+  ComponentType, 
+  ReactHTML, 
+  ReactSVG, 
+  DOMElement, 
+  AllHTMLAttributes, 
+  SVGAttributes, 
+  ClassAttributes 
+} from 'react';
 
-declare interface ClassComponent<P> {
-  new(...args): Component<P, any>;
-}
-declare interface StatelessComponent<P> {
-  (props: P): ReactElement;
-}
 declare type Children = ReactChild | ReactChild[];
-declare type ReactComponent<P> = ClassComponent<P> | StatelessComponent<P>;
+  
+type Tag = keyof ReactHTML | keyof ReactSVG | string;
 
-export function hh(tag: string): (selector?: any, properties?: any, children?: Children) => ReactElement;
-export function hh(component: ReactComponent<any>): (selector?: any, properties?: any, children?: Children) => ReactElement;
+/* All HTML and SVG attributes */
+type ReactDOMAttributes = AllHTMLAttributes<EventTarget> | SVGAttributes<EventTarget>;
 
-export function h(tag: string, children?: Children): ReactElement;
-export function h(tag: string, selector: string, children?: Children): ReactElement;
-export function h(tag: string, selector: string, properties: HTMLAttributes, children?: Children): ReactElement;
-export function h(tag: string, properties: HTMLAttributes, children?: Children): ReactElement;
-export function h(component: ReactComponent<any>, children?: Children): ReactElement;
-export function h(component: ReactComponent<any>, selector: string, children?: Children): ReactElement;
-export function h<P>(component: ReactComponent<P>, selector: string, properties: P & Props<any>, children?: Children): ReactElement;
-export function h<P>(component: ReactComponent<P>, properties: P & Props<any>, children?: Children): ReactElement;
+/* Instantiated React element which is not a component but a HTML or SVG element */
+type ReactDOMElement = DOMElement<ReactDOMAttributes, Element>;
+
+/* All HTML and SVG attributes, plus "ref" and "key" */
+type ReactDOMProps = ReactDOMAttributes & ClassAttributes<Element>;
+
+export function hh(tag: Tag): (selector?: any, properties?: any, children?: Children) => ReactDOMElement;
+export function hh(component: ComponentType<any>): (selector?: any, properties?: any, children?: Children) => ReactElement<any>;
+
+export function h(tag: Tag, children?: Children): ReactDOMElement;
+export function h(tag: Tag, selector: string, children?: Children): ReactDOMElement;
+export function h(tag: Tag, selector: string, properties: ReactDOMProps, children?: Children): ReactDOMElement;
+export function h(tag: Tag, properties: ReactDOMProps, children?: Children): ReactDOMElement;
+
+export function h<P>(component: ComponentType<P>, selector: string, properties: P & Props<any>, children?: Children): ReactElement<P>;
+export function h<P>(component: ComponentType<P>, properties: P & Props<any>, children?: Children): ReactElement<P>;
+export function h(component: ComponentType<any>, children?: Children): ReactElement<any>;
+export function h(component: ComponentType<any>, selector: string, children?: Children): ReactElement<any>;
 ${
   TAG_NAMES.reduce((accum, tag) => `${accum}
-export function ${tag}(children?: Children): ReactElement;
-export function ${tag}(selector: string, children?: Children): ReactElement;
-export function ${tag}(selector: string, properties: HTMLAttributes, children?: Children): ReactElement;
-export function ${tag}(properties: HTMLAttributes, children?: Children): ReactElement;`
+export function ${tag}(children?: Children): ReactDOMElement;
+export function ${tag}(selector: string, children?: Children): ReactDOMElement;
+export function ${tag}(selector: string, properties: ReactDOMProps, children?: Children): ReactDOMElement;
+export function ${tag}(properties: ReactDOMProps, children?: Children): ReactDOMElement;`
   , ``)
 }`;
 
