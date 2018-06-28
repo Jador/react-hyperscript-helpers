@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.5.0
+    steps:
+      - checkout
+      - run:
+          name: Install Deps
+          command: yarn
+      - run:
+          name: Test
+          command: yarn test

@@ -5,8 +5,6 @@ A library inspired by [hyperscript-helpers](https://github.com/ohanhi/hyperscrip
 
 Allows for expressing UIs in the hyperscript-helpers style but with first class support for React.
 
-The api has been greatly improved, making the library usable for actual projects.
-
 ## Why?
 
 ### Pros
@@ -80,6 +78,22 @@ export default () => div('.foo', [
   MyComponent(),
   h(SomeOtherComponent, { foo: 'bar' })
 ]);
+```
+
+A UMD build is also available
+
+```html
+<div id="app-root" />
+<script src="https://unpkg.com/react@16.4.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.4.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/react-hyperscript-helpers@2.0.0/umd/react-hyperscript-helpers.min.js"></script>
+<script>
+  function Hello() {
+    return rhh.div('hello world')
+  }
+
+  ReactDOM.render(rhh.h(Hello), document.getElementById('app-root'))
+</script>
 ```
 
 ## isRendered
